@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-2
+  # labels related to deployment resource
+  labels:
+    app: app-2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-2
+  # Pod
+  template:
+    metadata:
+      labels:
+        app: app-2
+    spec:
+      containers:
+      - name: app-2
+        image: joindevops/app2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-2
+  # servicer labels
+  labels:
+    app: app-2
+spec:
+  # Service uses the below labels to select the pods
+  selector:
+    app: app-2
+  ports:
+    - protocol: TCP
+      port: 80 # service port
+      targetPort: 80 # container port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-2
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:160885265516:certificate/61941d36-1bfb-47bb-b32a-971664ba51e2
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "app2.daws90s.shop"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app-2
+            port:
+              number: 80
+
