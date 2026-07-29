@@ -37,3 +37,24 @@ spec:
     - protocol: TCP
       port: 80 # service port
       targetPort: 80 # container port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-1
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "app1.daws90s.shop"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app-1
+            port:
+              number: 80
+
