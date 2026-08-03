@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-1
+  # labels related to deployment resource
+  labels:
+    app: app-1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-1
+  # Pod
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - name: app-1
+        image: joindevops/app1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-1
+  # servicer labels
+  labels:
+    app: app-1
+spec:
+  # Service uses the below labels to select the pods
+  selector:
+    app: app-1
+  ports:
+    - protocol: TCP
+      port: 80 # service port
+      targetPort: 80 # container port
+---
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: app1
+  namespace: roboshop
+spec:
+  serviceRef:
+    name: app1 # route traffic to the awesome-service
+    port: 80
+  targetGroupARN: arn:aws:elasticloadbalancing:us-east-1:160885265516:targetgroup/roboshop-dev-frontend/302847d8c0a88943
+  targetType: ip
