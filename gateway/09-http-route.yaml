@@ -1,11 +1,11 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: app1
+  name: app2
   namespace: roboshop
 spec:
   hostnames:
-  - app1.daws90s.shop
+  - app2.daws90s.shop
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
@@ -15,7 +15,7 @@ spec:
   - backendRefs:
     - group: ""
       kind: Service
-      name: app1
+      name: app2
       port: 80
       weight: 1
     matches:
