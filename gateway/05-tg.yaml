@@ -1,0 +1,11 @@
+apiVersion: gateway.k8s.aws/v1
+kind: TargetGroupConfiguration
+metadata:
+  name: app1
+  namespace: roboshop
+spec:
+  targetReference:
+    name: app1
+    kind: Service
+  defaultConfiguration:
+    targetType: ip
