@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: roboshop
+  namespace: roboshop
+spec:
+  gatewayClassName: aws-alb
+  infrastructure:
+    parametersRef:
+      group: gateway.k8s.aws
+      kind: LoadBalancerConfiguration
+      name: roboshop-alb
+  listeners:
+  - name: http
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: Same
+  - name: https
+    port: 443
+    protocol: HTTPS
+    hostname: "*.daws90s.shop"
+    allowedRoutes:
+      namespaces:
+        from: Same
