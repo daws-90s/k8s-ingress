@@ -10,3 +10,5 @@ spec:
   - protocolPort: HTTPS:443
     certificates:
     - arn:aws:acm:us-east-1:160885265516:certificate/94cd8d1f-d89e-4253-b737-30d2f604c296
+
+# We are going to use ALB, Listener

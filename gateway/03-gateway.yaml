@@ -24,3 +24,5 @@ spec:
     allowedRoutes:
       namespaces:
         from: Same
+
+# Listener port

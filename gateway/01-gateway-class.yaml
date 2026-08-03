@@ -4,3 +4,6 @@ metadata:
   name: aws-alb
 spec:
   controllerName: gateway.k8s.aws/alb
+
+# We are going to use ALB
+# https://aws.amazon.com/blogs/networking-and-content-delivery/streamline-your-amazon-eks-deployments-with-gateway-api-support-for-aws-load-balancer-controller-and-amazon-vpc-lattice/
