@@ -9,6 +9,6 @@ spec:
   listenerConfigurations:
   - protocolPort: HTTPS:443
     certificates:
-    - arn:aws:acm:us-east-1:160885265516:certificate/94cd8d1f-d89e-4253-b737-30d2f604c296
+    - arn:aws:acm:us-east-1:160885265516:certificate/4a68ecf0-f734-45eb-b3f4-7ceb71d791f9
 
 # We are going to use ALB, Listener
